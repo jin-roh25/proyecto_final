@@ -16,7 +16,7 @@ public class Ventana extends JFrame {
     
     public Ventana(){
         this.setLayout(new BorderLayout());
-        this.setTitle("Deposito de Bebidas");
+        this.setTitle("Pool");
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setSize(515, 538); //contrarresta el achicamiento
         this.setResizable(false);
