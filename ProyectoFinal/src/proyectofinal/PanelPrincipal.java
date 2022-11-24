@@ -26,14 +26,14 @@ public class PanelPrincipal extends javax.swing.JLayeredPane {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        mesaPool1 = new proyectofinal.MesaPool();
+        mesaPool2 = new proyectofinal.MesaPool();
 
-        add(mesaPool1);
-        mesaPool1.setBounds(130, 120, 0, 0);
+        add(mesaPool2);
+        mesaPool2.setBounds(40, 60, 450, 249);
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private proyectofinal.MesaPool mesaPool1;
+    private proyectofinal.MesaPool mesaPool2;
     // End of variables declaration//GEN-END:variables
 }
