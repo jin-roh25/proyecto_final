@@ -8,25 +8,22 @@ public class Bola extends javax.swing.JPanel {
 
     private int numero;
     private int dx, dy;
-    private Timer t;
+    private Timer time;
 
     public Bola() {
         numero = 0;
-        dx = 1;
+        dx = 0;
         dy = 0;
         initComponents();
-        this.setSize(20, 20);
 
-        t = new Timer(100,null);
-        t.addActionListener(new ActionListener() {
+        time = new Timer(10, new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
                 movimiento();
             }
         });
-
-        t.start();
+        time.start();
     }
 
     private void movimiento() {
@@ -45,17 +42,9 @@ public class Bola extends javax.swing.JPanel {
     private void initComponents() {
 
         setOpaque(false);
-        addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseDragged(java.awt.event.MouseEvent evt) {
-                formMouseDragged(evt);
-            }
-        });
-        setLayout(null);
+        setPreferredSize(new java.awt.Dimension(40, 40));
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
     }// </editor-fold>//GEN-END:initComponents
-
-    private void formMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseDragged
-        // TODO add your handling code here:
-    }//GEN-LAST:event_formMouseDragged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
