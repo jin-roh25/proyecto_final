@@ -1,9 +1,40 @@
 package proyectofinal;
 
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import java.util.ArrayList;
+
 public class MesaPool extends javax.swing.JLayeredPane {
+    
+    private Timer time;
+    private ArrayList<Bola> bolas;
 
     public MesaPool() {
+        bolas = new ArrayList<>();
         initComponents();
+        
+        time = new Timer(10, new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent ev){
+                moverBolas();
+            }
+        });
+    }
+    
+    private void moverBolas(){
+        for (Bola b : bolas){
+            b.movimiento();
+        }
+        this.repaint();
+    }
+    
+    @Override
+    public void paint(Graphics g){
+        super.paint(g);
+        for (Bola b : bolas){
+            b.paint(g);
+        }
     }
 
     @SuppressWarnings("unchecked")
