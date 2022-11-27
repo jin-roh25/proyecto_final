@@ -3,6 +3,15 @@ package proyectofinal;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Ventana de Windows
+ * 
+ * @author Keyteer
+ * @author segonzalez2021
+ * @version versión 0.1, 27 de noviembre de 2022
+ * @see PanelPrincipal
+ */
+
 public class Ventana extends JFrame {
 
     private PanelPrincipal p;

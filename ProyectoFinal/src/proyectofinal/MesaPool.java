@@ -5,34 +5,53 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.util.ArrayList;
 
+/**
+ * Mesa de pool. ambiente en el que se desarrollan las interacciones
+ *
+ * @author Keyteer
+ * @author segonzalez2021
+ * @version versión 0.1, 27 de noviembre de 2022
+ * @see Bola
+ */
 public class MesaPool extends javax.swing.JLayeredPane {
-    
-    private Timer time;
-    private ArrayList<Bola> bolas;
 
+    /**
+     * timer que actualiza la posición de las bolas
+     */
+    private final Timer time;
+
+    /**
+     * todas las bolas de la mesa
+     */
+    private final ArrayList<Bola> bolas;
+
+    /**
+     * constructor, por defecto el timer actualiza cada 10 milisegundos
+     */
     public MesaPool() {
         bolas = new ArrayList<>();
+        bolas.add(new Bola(200, 200));
         initComponents();
-        
-        time = new Timer(10, new ActionListener(){
+
+        time = new Timer(10, new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent ev){
+            public void actionPerformed(ActionEvent ev) {
                 moverBolas();
             }
         });
     }
-    
-    private void moverBolas(){
-        for (Bola b : bolas){
+
+    private void moverBolas() {
+        for (Bola b : bolas) {
             b.movimiento();
         }
         this.repaint();
     }
-    
+
     @Override
-    public void paint(Graphics g){
+    public void paint(Graphics g) {
         super.paint(g);
-        for (Bola b : bolas){
+        for (Bola b : bolas) {
             b.paint(g);
         }
     }

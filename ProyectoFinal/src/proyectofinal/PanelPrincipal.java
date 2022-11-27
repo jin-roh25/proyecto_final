@@ -5,8 +5,12 @@
 package proyectofinal;
 
 /**
+ * Layered pane principal. contiene los elementos de UI y a la mesa de pool
  *
+ * @author Keyteer
  * @author segonzalez2021
+ * @version versión 0.1, 27 de noviembre de 2022
+ * @see MesaPool
  */
 public class PanelPrincipal extends javax.swing.JLayeredPane {
 
