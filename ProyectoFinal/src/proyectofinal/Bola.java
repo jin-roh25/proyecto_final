@@ -7,7 +7,7 @@ import java.awt.*;
  *
  * @author Keyteer
  * @author segonzalez2021
- * @version versión 0.2.1, 27 de noviembre de 2022
+ * @version versión 0.2.2, 28 de noviembre de 2022
  */
 public class Bola {
 
@@ -51,6 +51,7 @@ public class Bola {
 
     /**
      * suma una velocidad en vez de sobreescribirla
+     *
      * @param dx velocidad lateral añadida
      * @param dy velocidad horizontal añadida
      */
@@ -93,18 +94,14 @@ public class Bola {
         x += dx;
         y += dy;
 
-        if (dx > roce) {
-            dx -= roce;
-        } else if (dx < -roce) {
-            dx += roce;
+        if (Math.abs(dx) > roce) {
+            dx -= Math.copySign(roce, dx);
         } else {
             dx = 0;
         }
 
-        if (dy > roce) {
-            dy -= roce;
-        } else if (dy < -roce) {
-            dy += roce;
+        if (Math.abs(dy) > roce) {
+            dy -= Math.copySign(roce, dy);
         } else {
             dy = 0;
         }

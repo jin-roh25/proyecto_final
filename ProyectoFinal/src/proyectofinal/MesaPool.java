@@ -25,10 +25,14 @@ public class MesaPool extends javax.swing.JLayeredPane {
      */
     private final ArrayList<Bola> bolas;
 
+    /**
+     * roce del ambiente, aire + superficie
+     */
     private final double coeficienteFriccion;
 
     /**
-     * constructor, por defecto el timer actualiza cada 10 milisegundos
+     * constructor, por defecto el timer actualiza cada 10 milisegundos y el
+     * roce en 0.2
      */
     public MesaPool() {
         bolas = new ArrayList<>();
