@@ -10,7 +10,7 @@ import java.util.ArrayList;
  *
  * @author Keyteer
  * @author segonzalez2021
- * @version versión 0.1, 27 de noviembre de 2022
+ * @version versión 0.1.1, 27 de noviembre de 2022
  * @see Bola
  */
 public class MesaPool extends javax.swing.JLayeredPane {
@@ -25,12 +25,17 @@ public class MesaPool extends javax.swing.JLayeredPane {
      */
     private final ArrayList<Bola> bolas;
 
+    private final double coeficienteFriccion;
+
     /**
      * constructor, por defecto el timer actualiza cada 10 milisegundos
      */
     public MesaPool() {
         bolas = new ArrayList<>();
         bolas.add(new Bola(200, 200));
+
+        coeficienteFriccion = 0.2;
+
         initComponents();
 
         time = new Timer(10, new ActionListener() {
@@ -43,7 +48,7 @@ public class MesaPool extends javax.swing.JLayeredPane {
 
     private void moverBolas() {
         for (Bola b : bolas) {
-            b.movimiento();
+            b.movimiento(coeficienteFriccion);
         }
         this.repaint();
     }

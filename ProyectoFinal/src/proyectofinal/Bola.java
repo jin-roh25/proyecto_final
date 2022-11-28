@@ -7,7 +7,7 @@ import java.awt.*;
  *
  * @author Keyteer
  * @author segonzalez2021
- * @version versión 0.2, 27 de noviembre de 2022
+ * @version versión 0.2.1, 27 de noviembre de 2022
  */
 public class Bola {
 
@@ -51,6 +51,8 @@ public class Bola {
 
     /**
      * suma una velocidad en vez de sobreescribirla
+     * @param dx velocidad lateral añadida
+     * @param dy velocidad horizontal añadida
      */
     public void addDelta(double dx, double dy) {
         this.dx += dx;
@@ -84,10 +86,28 @@ public class Bola {
 
     /**
      * avanza la bola respecto a la velocidad que lleva
+     *
+     * @param roce velocidad que se le resta a la bola por cada llamado
      */
-    public void movimiento() {
+    public void movimiento(Double roce) {
         x += dx;
         y += dy;
+
+        if (dx > roce) {
+            dx -= roce;
+        } else if (dx < -roce) {
+            dx += roce;
+        } else {
+            dx = 0;
+        }
+
+        if (dy > roce) {
+            dy -= roce;
+        } else if (dy < -roce) {
+            dy += roce;
+        } else {
+            dy = 0;
+        }
     }
 
     /**
