@@ -7,7 +7,7 @@ import java.awt.*;
  *
  * @author Keyteer
  * @author segonzalez2021
- * @version versión 0.2.2, 28 de noviembre de 2022
+ * @version versión 1.0, 1 de diciembre, 2022
  */
 public class Bola {
 
@@ -17,15 +17,15 @@ public class Bola {
     private final Color color;
 
     /**
-     * posición y veloidad
+     * posición, veloidad e impulso instantaneo
      */
-    private double x, dx;
-    private double y, dy;
+    private double x, dx, implsX;
+    private double y, dy, implsY;
 
     /**
-     * diametro de la bola
+     * radio de la bola
      */
-    private final int Diametro;
+    private final int radio;
 
     /**
      * Constructor, genera un color aleatorio, velocidad inicial nula y un
@@ -41,23 +41,17 @@ public class Bola {
         this.y = y;
         this.dx = 0;
         this.dy = 0;
-        this.Diametro = 30;
+        this.radio = 15;
+    }
+
+    public void addImpls(double implsX, double implsY) {
+        this.implsX += implsX;
+        this.implsY += implsY;
     }
 
     public void setDelta(double dx, double dy) {
         this.dx = dx;
         this.dy = dy;
-    }
-
-    /**
-     * suma una velocidad en vez de sobreescribirla
-     *
-     * @param dx velocidad lateral añadida
-     * @param dy velocidad horizontal añadida
-     */
-    public void addDelta(double dx, double dy) {
-        this.dx += dx;
-        this.dy += dy;
     }
 
     public double getDX() {
@@ -81,8 +75,35 @@ public class Bola {
         return y;
     }
 
-    public int getTamaño() {
-        return Diametro;
+    public int getRadio() {
+        return radio;
+    }
+
+    /**
+     * revisa con una tolerancia, si la velocidad es mayor a cero
+     *
+     * @return true si se esta moviendo
+     */
+    public Boolean isMoving() {
+        return dx < Math.nextDown(0) || dx > Math.nextUp(0)
+                || dy < Math.nextDown(0) || dy > Math.nextUp(0);
+    }
+
+    /**
+     * revisa si existe una colisión entre dos bolas y aplica una transferencia
+     * de momuntum en caso verdadero
+     *
+     * @param b segunda bola
+     */
+    public void checkCollisionBola(Bola b) {
+        if ((radio + b.getRadio()) >= Math.sqrt(
+                Math.pow(b.getX() - x, 2) + Math.pow(b.getY() - y, 2))) {
+
+            this.unClip(b);
+            this.momentunTransferToBola(b);
+
+            //System.out.println(this + " --" + Math.sqrt(Math.pow(b.getX() - x, 2) + Math.pow(b.getY() - y, 2)) + "-> " + b);
+        }
     }
 
     /**
@@ -91,6 +112,10 @@ public class Bola {
      * @param roce velocidad que se le resta a la bola por cada llamado
      */
     public void movimiento(Double roce) {
+
+        dx += implsX;
+        dy += implsY;
+
         x += dx;
         y += dy;
 
@@ -105,6 +130,16 @@ public class Bola {
         } else {
             dy = 0;
         }
+
+        implsX = 0;
+        implsY = 0;
+    }
+
+    public void unClip(Bola b) {
+        this.setLocation(x - Math.cos(Math.atan2(dy, dx)) * (radio + b.getRadio()
+                - Math.sqrt(Math.pow(x - b.getX(), 2) + Math.pow(y - b.getY(), 2))),
+                y - Math.sin(Math.atan2(dy, dx)) * (radio + b.getRadio()
+                - Math.sqrt(Math.pow(x - b.getX(), 2) + Math.pow(y - b.getY(), 2))));
     }
 
     /**
@@ -116,8 +151,9 @@ public class Bola {
      * @param b bola a la que se le transfiere el momentum
      */
     public void momentunTransferToBola(Bola b) {
-        double implsX;
-        double implsY;
+        //System.out.println("colision de " + this + " con " + b);
+
+        double iX = 0, iY = 0;
 
         double porcion = (Math.PI / 2 - Math.abs(Math.atan2(
                 b.getY() - y, b.getX() - x) - Math.atan2(dy, dx)))
@@ -126,19 +162,18 @@ public class Bola {
         if (porcion < 0) {
             porcion = 0;
         }
-
-        implsX = Math.cos(Math.atan2(b.getY() - y, b.getX() - x))
+        iX += Math.cos(Math.atan2(b.getY() - y, b.getX() - x))
                 * porcion * Math.sqrt(dx * dx + dy * dy);
-        implsY = Math.sin(Math.atan2(b.getY() - y, b.getX() - x))
+        iY += Math.sin(Math.atan2(b.getY() - y, b.getX() - x))
                 * porcion * Math.sqrt(dx * dx + dy * dy);
 
-        b.addDelta(implsX, implsY);
-        this.addDelta(-implsX, -implsY);
+        b.addImpls(iX, iY);
+        this.addImpls(-iX, -iY);
     }
 
     public void paint(Graphics g) {
         g.setColor(color);
-        g.fillOval((int) x - Diametro / 2, (int) y - Diametro / 2,
-                Diametro, Diametro);
+        g.fillOval((int) x - radio, (int) y - radio,
+                radio * 2, radio * 2);
     }
 }
