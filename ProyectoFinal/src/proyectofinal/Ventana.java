@@ -21,12 +21,11 @@ public class Ventana extends JFrame {
         this.setTitle("Pool");
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        this.setSize(Toolkit.getDefaultToolkit().getScreenSize());
-        this.setResizable(true);
-        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-
         p = new PanelPrincipal();
         this.add(p, BorderLayout.CENTER);
+
+        this.setSize(p.getPreferredSize());
+        this.setResizable(true);
 
         this.setVisible(true);
     }
