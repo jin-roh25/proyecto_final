@@ -15,7 +15,7 @@ public class Bola {
     /**
      * Color de la bola
      */
-    private final Color color;
+    private Color color;
 
     /**
      * posición y veloidad
@@ -54,6 +54,14 @@ public class Bola {
         this.location = location;
         this.delta = new Point2D.Double();
         this.radio = 15;
+    }
+
+    public void setColor(Color c) {
+        this.color = c;
+    }
+    
+    public Color getColor() {
+        return this.color;
     }
 
     public void setDelta(Point2D d) {
