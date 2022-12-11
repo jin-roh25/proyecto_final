@@ -6,36 +6,58 @@ package proyectofinal;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Point2D;
 
 /**
  * taco para golpear bolas. se usara para aplicarle un impulso a la bola blanca
  *
  * @author Keyteer
  * @author segonzalez2021
- * @version versión 0.1, 28 de noviembre de 2022
+ * @version versión 1.0, 11 de diciembre de 2022
  */
 public class Taco extends javax.swing.JPanel {
+
+    /**
+     * bola que golpea
+     */
+    private Bola bola;
+    /**
+     * angulo del taco y distancia desde la que se tomo el taco
+     */
+    private double dist, angle;
 
     //private double angulo, distancia;
     /**
      * Creates new form Taco
      */
     public Taco() {
+        bola = new Bola(0, 0);
+        dist = 0;
+        angle = 0;
+
         initComponents();
-        this.setPreferredSize(new Dimension(900,900));
     }
-    
+
+    public void setBola(Bola b) {
+        this.bola = b;
+    }
+
+    /**
+     * posiciona el taco sobre la bola
+     */
+    public void resetLocation() {
+        this.setLocation((int) bola.getLocation().getX() - this.getWidth() / 2,
+                (int) bola.getLocation().getY() - this.getHeight() / 2);
+    }
+
     @Override
-    public void paint(Graphics g){
+    public void paint(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
-        AffineTransform t= new AffineTransform();
-        t.rotate(WIDTH, ABORT, ABORT);
-        g2d.setTransform(t);
-        
+        AffineTransform tr = g2d.getTransform();
+        tr.rotate(this.angle, this.getWidth() / 2, this.getHeight() / 2);
+        g2d.setTransform(tr);
         super.paint(g2d);
     }
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -49,11 +71,66 @@ public class Taco extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
 
         setOpaque(false);
+        setPreferredSize(new java.awt.Dimension(1030, 1030));
+        addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                formMouseDragged(evt);
+            }
+        });
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                formMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                formMouseReleased(evt);
+            }
+        });
+
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Taco.png"))); // NOI18N
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 509, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
+/**
+     * posiciona el taco en funcion del mouse
+     */
+    private void formMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseDragged
+        Point2D mouse = P2DMath.subtract(P2DMath.add(P2DMath.toPoint2D(this.getLocation()), new Point2D.Double(evt.getX(), evt.getY())), bola.getLocation());
+        if (P2DMath.getMagnitude(mouse) - dist > Math.nextUp(0)) {
+            mouse = P2DMath.combine(P2DMath.getMagnitude(mouse) - dist, mouse);
+        } else {
+            mouse = P2DMath.combine(Math.nextUp(0), mouse);
+        }
+
+        angle = P2DMath.getAngle(mouse) - Math.PI;
+
+        Point2D offset = new Point2D.Double(-this.getWidth() / 2, -this.getHeight() / 2);
+
+        this.setLocation(P2DMath.toIntPoint(P2DMath.add(bola.getLocation(), P2DMath.add(mouse, offset))));
+
+    }//GEN-LAST:event_formMouseDragged
+    /**
+     * registra desde donde se tomo el taco
+     */
+    private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed
+        Point2D mouse = P2DMath.subtract(P2DMath.add(P2DMath.toPoint2D(this.getLocation()), new Point2D.Double(evt.getX(), evt.getY())), bola.getLocation());
+        dist = P2DMath.getMagnitude(mouse);
+    }//GEN-LAST:event_formMousePressed
+    /**
+     * aplica un impulso en función del angulo y cuanto se arrastro el taco
+     */
+    private void formMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseReleased
+        Point2D mouse = P2DMath.subtract(P2DMath.add(P2DMath.toPoint2D(this.getLocation()), new Point2D.Double(evt.getX(), evt.getY())), bola.getLocation());
+        if (P2DMath.getMagnitude(mouse) - dist > Math.nextUp(0)) {
+            mouse = P2DMath.combine(P2DMath.getMagnitude(mouse) - dist, mouse);
+        } else {
+            mouse = P2DMath.combine(Math.nextUp(0), mouse);
+        }
+
+        mouse = P2DMath.combine(P2DMath.getMagnitude(mouse) / 20, mouse);
+
+        bola.setDelta(P2DMath.getNegative(mouse));
+    }//GEN-LAST:event_formMouseReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

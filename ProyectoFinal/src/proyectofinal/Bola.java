@@ -15,7 +15,7 @@ public class Bola implements Collisions{
     /**
      * Color de la bola
      */
-    private final Color color;
+    private Color color;
 
     /**
      * posición y veloidad
@@ -48,12 +48,20 @@ public class Bola implements Collisions{
      *
      * @param location posicion inicial
      */
-    public Bola(Point2D.Double location) {
+    public Bola(Point2D location) {
         this.color = new Color((float) Math.random(),
                 (float) Math.random(), (float) Math.random());
         this.location = location;
         this.delta = new Point2D.Double();
         this.radio = 15;
+    }
+
+    public void setColor(Color c) {
+        this.color = c;
+    }
+    
+    public Color getColor() {
+        return this.color;
     }
 
     public void setDelta(Point2D d) {
@@ -102,8 +110,6 @@ public class Bola implements Collisions{
         if (radio + b.getRadio() >= location.distance(b.getLocation())) {
 
             this.momentunTransferToBola(b);
-
-            //System.out.println(this + " --" + location.distance(b.getLocation()) + "-> " + b);
         }
     }
 
@@ -134,7 +140,6 @@ public class Bola implements Collisions{
      * @param b bola a la que se le transfiere el momentum
      */
     public void momentunTransferToBola(Bola b) {
-        //System.out.println("colision de " + this + " con " + b);
 
         double porcentaje = (Math.PI / 2 - Math.abs(P2DMath.angleDiff(delta,
                 P2DMath.subtract(b.getLocation(), location)))) / (Math.PI / 2);
@@ -142,7 +147,6 @@ public class Bola implements Collisions{
         if (porcentaje < 0) {
             porcentaje = 0;
         }
-        System.out.println(porcentaje);
         Point2D impulso = P2DMath.combine(P2DMath.getMagnitude(delta) * porcentaje,
                 P2DMath.subtract(b.getLocation(), location));
 

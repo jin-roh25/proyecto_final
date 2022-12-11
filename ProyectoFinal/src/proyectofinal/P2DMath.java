@@ -4,6 +4,7 @@
  */
 package proyectofinal;
 
+import java.awt.Point;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
@@ -12,7 +13,7 @@ import java.util.ArrayList;
  * asignacion de vectores para ciertos calculos
  *
  * @author Keyteer
- * @version 1.0, 02/12/2022
+ * @version 1.0.1, 11/12/2022
  */
 public class P2DMath {
 
@@ -35,6 +36,24 @@ public class P2DMath {
      */
     public static P2DMath getInstance() {
         return vectr;
+    }
+
+    /**
+     *
+     * @param p Point2D
+     * @return p casteado como Point
+     */
+    public static Point toIntPoint(Point2D p) {
+        return new Point((int) p.getX(), (int) p.getY());
+    }
+
+    /**
+     *
+     * @param p Point
+     * @return p casteado como Point2D.double
+     */
+    public static Point2D toPoint2D(Point p) {
+        return new Point2D.Double(p.getX(), p.getY());
     }
 
     /**
