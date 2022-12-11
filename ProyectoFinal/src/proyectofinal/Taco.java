@@ -4,6 +4,9 @@
  */
 package proyectofinal;
 
+import java.awt.*;
+import java.awt.geom.AffineTransform;
+
 /**
  * taco para golpear bolas. se usara para aplicarle un impulso a la bola blanca
  *
@@ -19,7 +22,20 @@ public class Taco extends javax.swing.JPanel {
      */
     public Taco() {
         initComponents();
+        this.setPreferredSize(new Dimension(900,900));
     }
+    
+    @Override
+    public void paint(Graphics g){
+        Graphics2D g2d = (Graphics2D) g;
+        AffineTransform t= new AffineTransform();
+        t.rotate(WIDTH, ABORT, ABORT);
+        g2d.setTransform(t);
+        
+        super.paint(g2d);
+    }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -32,6 +48,7 @@ public class Taco extends javax.swing.JPanel {
 
         jLabel1 = new javax.swing.JLabel();
 
+        setOpaque(false);
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Taco.png"))); // NOI18N

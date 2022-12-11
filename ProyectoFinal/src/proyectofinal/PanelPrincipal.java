@@ -31,13 +31,17 @@ public class PanelPrincipal extends javax.swing.JLayeredPane {
     private void initComponents() {
 
         mesaPool1 = new proyectofinal.MesaPool();
+        taco1 = new proyectofinal.Taco();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         add(mesaPool1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        setLayer(taco1, 3);
+        add(taco1, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 360, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private proyectofinal.MesaPool mesaPool1;
+    private proyectofinal.Taco taco1;
     // End of variables declaration//GEN-END:variables
 }

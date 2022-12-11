@@ -10,7 +10,7 @@ import java.awt.geom.Point2D;
  * @author segonzalez2021
  * @version versión 2.0, 2 de diciembre, 2022
  */
-public class Bola {
+public class Bola implements Collisions{
 
     /**
      * Color de la bola
@@ -96,7 +96,9 @@ public class Bola {
      *
      * @param b segunda bola
      */
-    public void checkCollisionBola(Bola b) {
+    
+    @Override
+    public void checkCollision(Bola b){
         if (radio + b.getRadio() >= location.distance(b.getLocation())) {
 
             this.momentunTransferToBola(b);
