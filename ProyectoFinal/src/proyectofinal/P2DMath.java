@@ -177,4 +177,18 @@ public class P2DMath {
     public static Point2D combine(Point2D pMag, double ang) {
         return polarToPoint(getMagnitude(pMag), ang);
     }
+    
+    public static Point2D invertX(Point2D p){
+        
+        p.setLocation(-p.getX(), p.getY()); 
+        
+        return p;
+    }
+    
+    public static Point2D invertY(Point2D p){
+        
+        p.setLocation(p.getX(), -p.getY()); 
+        
+        return p;
+    }
 }

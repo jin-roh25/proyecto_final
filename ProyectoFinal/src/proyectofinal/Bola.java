@@ -10,7 +10,7 @@ import java.awt.geom.Point2D;
  * @author segonzalez2021
  * @version versión 2.0, 2 de diciembre, 2022
  */
-public class Bola implements Collisions{
+public class Bola {
 
     /**
      * Color de la bola
@@ -41,7 +41,7 @@ public class Bola implements Collisions{
         this.delta = new Point2D.Double();
         this.radio = 15;
     }
-    
+
     /**
      * Constructor, genera un color aleatorio, velocidad inicial nula y un
      * diametro por defecto de 30 pixeles
@@ -59,7 +59,7 @@ public class Bola implements Collisions{
     public void setColor(Color c) {
         this.color = c;
     }
-    
+
     public Color getColor() {
         return this.color;
     }
@@ -104,9 +104,7 @@ public class Bola implements Collisions{
      *
      * @param b segunda bola
      */
-    
-    @Override
-    public void checkCollision(Bola b){
+    public void checkCollision(Bola b) {
         if (radio + b.getRadio() >= location.distance(b.getLocation())) {
 
             this.momentunTransferToBola(b);
