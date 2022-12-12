@@ -52,15 +52,6 @@
         </Constraint>
       </Constraints>
     </Component>
-<<<<<<< HEAD
-    <Component class="proyectofinal.Taco" name="taco1">
-      <AuxValues>
-        <AuxValue name="JLayeredPane.layer" type="java.lang.Integer" value="3"/>
-      </AuxValues>
-      <Constraints>
-        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="530" y="360" width="-1" height="-1"/>
-=======
     <Component class="javax.swing.JButton" name="jButton1">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -105,7 +96,6 @@
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="130" y="640" width="-1" height="-1"/>
->>>>>>> b92cc76d6c19a601fa6df983307c249b67dc13cc
         </Constraint>
       </Constraints>
     </Component>
