@@ -5,6 +5,7 @@ import java.awt.event.*;
 import java.awt.geom.Point2D;
 import javax.swing.*;
 import java.util.ArrayList;
+import org.netbeans.lib.awtextra.*;
 
 /**
  * Mesa de pool. ambiente en el que se desarrollan las interacciones
@@ -86,8 +87,8 @@ public class MesaPool extends javax.swing.JLayeredPane {
 
         while (!disponible) { // ¡¡¡¡¡¡rocordar ajustar los random para quedar dentro del area de
             // juego!!!!!!!!!!!
-            p = new Point2D.Double(jLabel1.getX() + 72 + Math.random() * (jLabel1.getWidth() - 132),
-                    jLabel1.getY() + 72 + Math.random() * (jLabel1.getHeight() - 132));
+            p = new Point2D.Double(mesa.getX() + 72 + Math.random() * (mesa.getWidth() - 132),
+                    mesa.getY() + 72 + Math.random() * (mesa.getHeight() - 132));
             disponible = true;
             for (Bola b : bolas) {
                 if (P2DMath.getMagnitude(P2DMath.subtract(b.getLocation(), p)) < b.getRadio() * 2 + 5) {
@@ -152,47 +153,47 @@ public class MesaPool extends javax.swing.JLayeredPane {
 
     public Bola checkCollision(Bola b) {
 
-        if (jLabel1.getY() + 72 >= b.getLocation().getY() + b.getRadio()) {
-            if ((jLabel1.getX() + 72 <= b.getLocation().getX()) && (b.getLocation().getX() <= jLabel1.getX() + 379)) {
+        if (mesa.getY() + 72 >= b.getLocation().getY() + b.getRadio()) {
+            if ((mesa.getX() + 72 <= b.getLocation().getX()) && (b.getLocation().getX() <= mesa.getX() + 379)) {
                 P2DMath.invertY(b.getDelta());
 
-            } else if ((jLabel1.getX() + 420 <= b.getLocation().getX()) && (b.getLocation().getX() <= jLabel1.getX() + 728)) {
+            } else if ((mesa.getX() + 420 <= b.getLocation().getX()) && (b.getLocation().getX() <= mesa.getX() + 728)) {
                 P2DMath.invertY(b.getDelta());
             }
-        } else if (b.getLocation().getY() + b.getRadio() >= jLabel1.getY() + 399) {
-            if ((jLabel1.getX() + 72 <= b.getLocation().getX()) && (b.getLocation().getX() <= jLabel1.getX() + 379)) {
+        } else if (b.getLocation().getY() + b.getRadio() >= mesa.getY() + 399) {
+            if ((mesa.getX() + 72 <= b.getLocation().getX()) && (b.getLocation().getX() <= mesa.getX() + 379)) {
                 P2DMath.invertY(b.getDelta());
-            } else if ((jLabel1.getX() + 420 <= b.getLocation().getX()) && (b.getLocation().getX() <= jLabel1.getX() + 728)) {
+            } else if ((mesa.getX() + 420 <= b.getLocation().getX()) && (b.getLocation().getX() <= mesa.getX() + 728)) {
                 P2DMath.invertY(b.getDelta());
             }
-        } else if (jLabel1.getX() + 72 >= b.getLocation().getX() + b.getRadio()) {
-            if ((jLabel1.getY() + 72 <= b.getLocation().getY()) && (b.getLocation().getY() <= jLabel1.getY() + 370)) {
+        } else if (mesa.getX() + 72 >= b.getLocation().getX() + b.getRadio()) {
+            if ((mesa.getY() + 72 <= b.getLocation().getY()) && (b.getLocation().getY() <= mesa.getY() + 370)) {
                 P2DMath.invertX(b.getDelta());
             }
-        } else if (jLabel1.getX() + 756 <= b.getLocation().getX() + b.getRadio()) {
-            if ((jLabel1.getY() + 72 <= b.getLocation().getY()) && (b.getLocation().getY() <= jLabel1.getY() + 370)) {
+        } else if (mesa.getX() + 756 <= b.getLocation().getX() + b.getRadio()) {
+            if ((mesa.getY() + 72 <= b.getLocation().getY()) && (b.getLocation().getY() <= mesa.getY() + 370)) {
                 P2DMath.invertX(b.getDelta());
             }
         }
 
-        if (jLabel1.getY() + 72 >= b.getLocation().getY()) {
-            if (jLabel1.getX() + 72 >= b.getLocation().getX()) {
+        if (mesa.getY() + 72 >= b.getLocation().getY()) {
+            if (mesa.getX() + 72 >= b.getLocation().getX()) {
                 return checkblanca(b);
-            } else if (b.getLocation().getX() + b.getRadio() >= jLabel1.getX() + 399) {
-                return checkblanca(b);
-            }
-        } else if (jLabel1.getY() + 62 >= b.getLocation().getY()) {
-            if ((jLabel1.getX() + 379 <= b.getLocation().getX()) && (b.getLocation().getX() <= jLabel1.getX() + 420)) {
+            } else if (b.getLocation().getX() + b.getRadio() >= mesa.getX() + 399) {
                 return checkblanca(b);
             }
-        } else if (b.getLocation().getY() >= jLabel1.getY() + 399) {
-            if ((jLabel1.getX() + 379 <= b.getLocation().getX()) && (b.getLocation().getX() <= jLabel1.getX() + 420)) {
+        } else if (mesa.getY() + 62 >= b.getLocation().getY()) {
+            if ((mesa.getX() + 379 <= b.getLocation().getX()) && (b.getLocation().getX() <= mesa.getX() + 420)) {
                 return checkblanca(b);
             }
-        } else if (jLabel1.getY() + 409 <= b.getLocation().getY()) {
-            if (jLabel1.getX() + 72 >= b.getLocation().getX()) {
+        } else if (b.getLocation().getY() >= mesa.getY() + 399) {
+            if ((mesa.getX() + 379 <= b.getLocation().getX()) && (b.getLocation().getX() <= mesa.getX() + 420)) {
                 return checkblanca(b);
-            } else if (b.getLocation().getX() >= jLabel1.getX() + 399) {
+            }
+        } else if (mesa.getY() + 409 <= b.getLocation().getY()) {
+            if (mesa.getX() + 72 >= b.getLocation().getX()) {
+                return checkblanca(b);
+            } else if (b.getLocation().getX() >= mesa.getX() + 399) {
                 return checkblanca(b);
             }
         }
@@ -212,9 +213,15 @@ public class MesaPool extends javax.swing.JLayeredPane {
     @Override
     public void paint(Graphics g) {
         super.paint(g);
+
         for (Bola b : bolas) {
             b.paint(g);
         }
+
+        AbsoluteConstraints bounds = new AbsoluteConstraints(mesa.getX(), mesa.getY(), -1, -1);
+        this.remove(mesa);
+        super.paint(g);
+        this.add(mesa, bounds);
     }
 
     @SuppressWarnings("unchecked")
@@ -222,15 +229,15 @@ public class MesaPool extends javax.swing.JLayeredPane {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        mesa = new javax.swing.JLabel();
         taco = new proyectofinal.Taco();
         jLabel2 = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(1280, 720));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/MesaPool.png"))); // NOI18N
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 80, -1, -1));
+        mesa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/MesaPool.png"))); // NOI18N
+        add(mesa, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 80, -1, -1));
         setLayer(taco, 1);
         add(taco, new org.netbeans.lib.awtextra.AbsoluteConstraints(312, -214, -1, -1));
 
@@ -240,8 +247,8 @@ public class MesaPool extends javax.swing.JLayeredPane {
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel mesa;
     private proyectofinal.Taco taco;
     // End of variables declaration//GEN-END:variables
 }
