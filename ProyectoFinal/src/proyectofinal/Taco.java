@@ -13,7 +13,6 @@ import java.awt.geom.Point2D;
  *
  * @author Keyteer
  * @author segonzalez2021
- * @version versión 1.0, 11 de diciembre de 2022
  */
 public class Taco extends javax.swing.JPanel {
 

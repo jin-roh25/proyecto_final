@@ -3,6 +3,7 @@ package proyectofinal;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.Point2D;
+import java.beans.*;
 import javax.swing.*;
 import java.util.ArrayList;
 import org.netbeans.lib.awtextra.*;
@@ -12,7 +13,6 @@ import org.netbeans.lib.awtextra.*;
  *
  * @author Keyteer
  * @author segonzalez2021
- * @version versión 0.1.2, 1 de diciembre, 2022
  * @see Bola
  */
 public class MesaPool extends javax.swing.JLayeredPane {
@@ -22,13 +22,24 @@ public class MesaPool extends javax.swing.JLayeredPane {
      */
     private final Timer time;
 
+    /**
+     * puntaje
+     */
     private int puntaje;
+
+    /**
+     * herramienta para gestionar eventos tipo propertyChange
+     */
+    private PropertyChangeSupport prChangeList;
 
     /**
      * todas las bolas de la mesa
      */
     private final ArrayList<Bola> bolas;
 
+    /**
+     * indicador para saber si el taco esta activo
+     */
     private Boolean tacoActive;
 
     /**
@@ -38,7 +49,7 @@ public class MesaPool extends javax.swing.JLayeredPane {
 
     /**
      * constructor, por defecto el timer actualiza cada 10 milisegundos y el
-     * valor de la fricción en 0.2
+     * valor de la fricción es 0.2
      */
     public MesaPool() {
         initComponents();
@@ -63,30 +74,82 @@ public class MesaPool extends javax.swing.JLayeredPane {
             }
         });
         time.start();
+
+        prChangeList = new PropertyChangeSupport(this);
+    }
+
+    /**
+     * añade un listener a la lista
+     */
+    @Override
+    public void addPropertyChangeListener(PropertyChangeListener l) {
+        super.addPropertyChangeListener(l);
+        prChangeList.addPropertyChangeListener(l);
+    }
+
+    /**
+     * remueve un listener de la lista
+     */
+    @Override
+    public void removePropertyChangeListener(PropertyChangeListener l) {
+        super.removePropertyChangeListener(l);
+        prChangeList.removePropertyChangeListener(l);
     }
 
     public int getPuntaje() {
         return puntaje;
     }
 
+    /**
+     * setter que genera un evento tipo propertyChange
+     *
+     * @param puntaje a asignar
+     */
+    public void setPuntaje(int puntaje) {
+        int oldVal = this.puntaje;
+        this.puntaje = puntaje;
+        prChangeList.firePropertyChange("puntaje", oldVal, this.puntaje);
+    }
+
+    /**
+     * añade una bola en una posicion aleatoria
+     */
     public void addBola() {
         bolas.add(new Bola(randomSpotSearcher()));
     }
 
+    /**
+     * remueve todas las bolas menos la blanca
+     */
     public void clearBolas() {
         bolas.retainAll(bolas.subList(0, 1));
         bolas.get(0).setLocation(randomSpotSearcher());
         bolas.get(0).setDelta(0., 0.);
-        puntaje = 0;
-        jLabel2.setText("PUNTAJE: " + Integer.toString(puntaje));
+        actilizarTaco();
     }
 
+    /**
+     * reinicia la mesa
+     *
+     * @param nBolas cantidad de bolas que se distriburan
+     */
+    public void reset(int nBolas) {
+        clearBolas();
+        for (int i = 1; i < nBolas; i++) {
+            addBola();
+        }
+        this.actilizarTaco();
+        this.setPuntaje(0);
+    }
+
+    /**
+     * busca un espacio aleatorio en el que se pueda añadir una bolas
+     */
     private Point2D randomSpotSearcher() {
         Point2D p = null;
         Boolean disponible = false;
 
-        while (!disponible) { // ¡¡¡¡¡¡rocordar ajustar los random para quedar dentro del area de
-            // juego!!!!!!!!!!!
+        while (!disponible) {
             p = new Point2D.Double(mesa.getX() + 72 + Math.random() * (mesa.getWidth() - 132),
                     mesa.getY() + 72 + Math.random() * (mesa.getHeight() - 132));
             disponible = true;
@@ -123,8 +186,7 @@ public class MesaPool extends javax.swing.JLayeredPane {
             }
         }
 
-        puntaje += rmBolas.size();
-        jLabel2.setText("PUNTAJE: " + Integer.toString(puntaje));
+        setPuntaje(this.puntaje + rmBolas.size());
         bolas.removeAll(rmBolas);
 
         for (Bola b : bolas) {
@@ -151,7 +213,13 @@ public class MesaPool extends javax.swing.JLayeredPane {
         }
     }
 
-    public Bola checkCollision(Bola b) {
+    /**
+     * revisa la colicion de una bola con la mesa
+     *
+     * @param b bola que se revisa
+     * @return retorna la misma bola si esta se metio a una tronera
+     */
+    private Bola checkCollision(Bola b) {
 
         if (mesa.getY() + 72 >= b.getLocation().getY() + b.getRadio()) {
             if ((mesa.getX() + 72 <= b.getLocation().getX()) && (b.getLocation().getX() <= mesa.getX() + 379)) {
@@ -201,6 +269,10 @@ public class MesaPool extends javax.swing.JLayeredPane {
         return null;
     }
 
+    /**
+     * revisa si una bola que se metio a una tronera es la bola blanca y la
+     * reposiciona en caso positivo
+     */
     private Bola checkblanca(Bola b) {
         if (bolas.get(0) == b) {
             b.setLocation(this.randomSpotSearcher());
@@ -210,6 +282,9 @@ public class MesaPool extends javax.swing.JLayeredPane {
         return b;
     }
 
+    /**
+     * pinta los objetos de la mesa en orden
+     */
     @Override
     public void paint(Graphics g) {
         super.paint(g);
@@ -225,13 +300,11 @@ public class MesaPool extends javax.swing.JLayeredPane {
     }
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         mesa = new javax.swing.JLabel();
         taco = new proyectofinal.Taco();
-        jLabel2 = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(1280, 720));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -240,14 +313,9 @@ public class MesaPool extends javax.swing.JLayeredPane {
         add(mesa, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 80, -1, -1));
         setLayer(taco, 1);
         add(taco, new org.netbeans.lib.awtextra.AbsoluteConstraints(312, -214, -1, -1));
-
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        jLabel2.setText("PUNTAJE: " + Integer.toString(puntaje));
-        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 320, 60));
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel mesa;
     private proyectofinal.Taco taco;
     // End of variables declaration//GEN-END:variables

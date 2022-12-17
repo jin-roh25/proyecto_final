@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * asignacion de vectores para ciertos calculos
  *
  * @author Keyteer
- * @version 1.0.1, 11/12/2022
+ * @author segonzalez2021
  */
 public class P2DMath {
 

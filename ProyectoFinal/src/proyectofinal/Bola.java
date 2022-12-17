@@ -8,7 +8,6 @@ import java.awt.geom.Point2D;
  *
  * @author Keyteer
  * @author segonzalez2021
- * @version versión 2.0, 2 de diciembre, 2022
  */
 public class Bola {
 
