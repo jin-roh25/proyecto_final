@@ -244,24 +244,24 @@ public class MesaPool extends javax.swing.JLayeredPane {
             }
         }
 
-        if (mesa.getY() + 72 >= b.getLocation().getY()) {
-            if (mesa.getX() + 72 >= b.getLocation().getX()) {
-                return checkblanca(b);
-            } else if (b.getLocation().getX() + b.getRadio() >= mesa.getX() + 399) {
-                return checkblanca(b);
-            }
-        } else if (mesa.getY() + 62 >= b.getLocation().getY()) {
+        if (mesa.getY() + 43 >= b.getLocation().getY()) {
             if ((mesa.getX() + 379 <= b.getLocation().getX()) && (b.getLocation().getX() <= mesa.getX() + 420)) {
                 return checkblanca(b);
             }
-        } else if (b.getLocation().getY() >= mesa.getY() + 399) {
+        }else if (mesa.getY() + 72 >= b.getLocation().getY()) {
+            if (mesa.getX() + 72 >= b.getLocation().getX()) {
+                return checkblanca(b);
+            } else if (b.getLocation().getX() + b.getRadio() >= mesa.getX() + 728) {
+                return checkblanca(b);
+            } 
+        } else if (mesa.getY() + 399 <= b.getLocation().getY()){
             if ((mesa.getX() + 379 <= b.getLocation().getX()) && (b.getLocation().getX() <= mesa.getX() + 420)) {
                 return checkblanca(b);
             }
-        } else if (mesa.getY() + 409 <= b.getLocation().getY()) {
+        } else if (mesa.getY() + 370 <= b.getLocation().getY()) {
             if (mesa.getX() + 72 >= b.getLocation().getX()) {
                 return checkblanca(b);
-            } else if (b.getLocation().getX() >= mesa.getX() + 399) {
+            } else if (b.getLocation().getX() >= mesa.getX() + 728) {
                 return checkblanca(b);
             }
         }
