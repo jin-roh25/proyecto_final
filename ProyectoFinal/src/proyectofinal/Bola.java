@@ -93,8 +93,7 @@ public class Bola {
      * @return true si se esta moviendo
      */
     public Boolean isMoving() {
-        return delta.getX() < Math.nextDown(0) || delta.getX() > Math.nextUp(0)
-                || delta.getY() < Math.nextDown(0) || delta.getY() > Math.nextUp(0);
+        return delta.getX() != 0. || delta.getY() != 0.;
     }
 
     /**
@@ -104,9 +103,24 @@ public class Bola {
      * @param b segunda bola
      */
     public void checkCollision(Bola b) {
-        if (radio + b.getRadio() >= location.distance(b.getLocation())) {
+        if (radio + b.getRadio() > location.distance(b.getLocation())) {
 
+            this.unclip(b);
             this.momentunTransferToBola(b);
+        }
+    }
+
+    public void unclip(Bola b) {
+        Point2D relativeLocation = P2DMath.subtract(b.getLocation(), location);
+        if (Math.PI / 2 > Math.abs(P2DMath.angleDiff(delta, relativeLocation))) {
+
+            double distPerpendicular = P2DMath.getMagnitude(relativeLocation) * Math.sin(P2DMath.angleDiff(relativeLocation, delta));
+            double distParalelaActl = P2DMath.getMagnitude(relativeLocation) * Math.cos(P2DMath.angleDiff(relativeLocation, delta));
+            double distParalelaObjetivo = Math.sqrt(Math.pow(b.getRadio() + radio, 2) - Math.pow(distPerpendicular, 2));
+
+            if (distParalelaObjetivo > 0) {
+                location = P2DMath.add(location, P2DMath.getNegative(P2DMath.combine(distParalelaObjetivo - distParalelaActl, delta)));
+            }
         }
     }
 
@@ -138,8 +152,7 @@ public class Bola {
      */
     public void momentunTransferToBola(Bola b) {
 
-        double porcentaje = (Math.PI / 2 - Math.abs(P2DMath.angleDiff(delta,
-                P2DMath.subtract(b.getLocation(), location)))) / (Math.PI / 2);
+        double porcentaje = Math.cos(P2DMath.angleDiff(delta, P2DMath.subtract(b.getLocation(), location)));
 
         if (porcentaje < 0) {
             porcentaje = 0;

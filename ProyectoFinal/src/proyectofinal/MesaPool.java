@@ -48,7 +48,7 @@ public class MesaPool extends javax.swing.JLayeredPane {
     private final double coeficienteFriccion;
 
     /**
-     * constructor, por defecto el timer actualiza cada 10 milisegundos y el
+     * constructor, por defecto el timer actualiza cada 50 milisegundos y el
      * valor de la fricción es 0.2
      */
     public MesaPool() {
@@ -60,14 +60,17 @@ public class MesaPool extends javax.swing.JLayeredPane {
 
         bolas.add(new Bola(830, 300));
         bolas.get(0).setColor(new Color(255, 255, 255));
+        
+        bolas.add(new Bola(810,300));
+        bolas.get(1).setDelta(1.,0.);
 
         tacoActive = true;
-        coeficienteFriccion = 0.02;
+        coeficienteFriccion = 0.05;
         puntaje = 0;
 
         taco.setBola(bolas.get(0));
 
-        time = new Timer(10, new ActionListener() {
+        time = new Timer(50, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ev) {
                 moverBolas();
@@ -167,6 +170,11 @@ public class MesaPool extends javax.swing.JLayeredPane {
      * aplica movimiento a todas las bola y revisa si hay movimiento
      */
     private void moverBolas() {
+
+        for (Bola b : bolas) {
+            b.movimiento(coeficienteFriccion);
+        }
+        
         Boolean movimiento = false;
         ArrayList rmBolas = new ArrayList();
 
@@ -188,10 +196,6 @@ public class MesaPool extends javax.swing.JLayeredPane {
 
         setPuntaje(this.puntaje + rmBolas.size());
         bolas.removeAll(rmBolas);
-
-        for (Bola b : bolas) {
-            b.movimiento(coeficienteFriccion);
-        }
 
         if (tacoActive && movimiento) {
             tacoActive = false;
