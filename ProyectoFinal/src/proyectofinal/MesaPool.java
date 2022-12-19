@@ -60,12 +60,9 @@ public class MesaPool extends javax.swing.JLayeredPane {
 
         bolas.add(new Bola(830, 300));
         bolas.get(0).setColor(new Color(255, 255, 255));
-        
-        bolas.add(new Bola(810,300));
-        bolas.get(1).setDelta(1.,0.);
 
         tacoActive = true;
-        coeficienteFriccion = 0.05;
+        coeficienteFriccion = 0.2;
         puntaje = 0;
 
         taco.setBola(bolas.get(0));
@@ -115,6 +112,13 @@ public class MesaPool extends javax.swing.JLayeredPane {
     }
 
     /**
+     * devuelve conjunto de bolas
+     */
+    public ArrayList<Bola> getBolas() {
+        return bolas;
+    }
+
+    /**
      * añade una bola en una posicion aleatoria
      */
     public void addBola() {
@@ -128,7 +132,6 @@ public class MesaPool extends javax.swing.JLayeredPane {
         bolas.retainAll(bolas.subList(0, 1));
         bolas.get(0).setLocation(randomSpotSearcher());
         bolas.get(0).setDelta(0., 0.);
-        actilizarTaco();
     }
 
     /**
@@ -141,7 +144,6 @@ public class MesaPool extends javax.swing.JLayeredPane {
         for (int i = 1; i < nBolas; i++) {
             addBola();
         }
-        this.actilizarTaco();
         this.setPuntaje(0);
     }
 
@@ -174,7 +176,7 @@ public class MesaPool extends javax.swing.JLayeredPane {
         for (Bola b : bolas) {
             b.movimiento(coeficienteFriccion);
         }
-        
+
         Boolean movimiento = false;
         ArrayList rmBolas = new ArrayList();
 
@@ -252,13 +254,13 @@ public class MesaPool extends javax.swing.JLayeredPane {
             if ((mesa.getX() + 379 <= b.getLocation().getX()) && (b.getLocation().getX() <= mesa.getX() + 420)) {
                 return checkblanca(b);
             }
-        }else if (mesa.getY() + 72 >= b.getLocation().getY()) {
+        } else if (mesa.getY() + 72 >= b.getLocation().getY()) {
             if (mesa.getX() + 72 >= b.getLocation().getX()) {
                 return checkblanca(b);
             } else if (b.getLocation().getX() + b.getRadio() >= mesa.getX() + 728) {
                 return checkblanca(b);
-            } 
-        } else if (mesa.getY() + 399 <= b.getLocation().getY()){
+            }
+        } else if (mesa.getY() + 399 <= b.getLocation().getY()) {
             if ((mesa.getX() + 379 <= b.getLocation().getX()) && (b.getLocation().getX() <= mesa.getX() + 420)) {
                 return checkblanca(b);
             }

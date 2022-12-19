@@ -39,6 +39,7 @@ public class Taco extends javax.swing.JPanel {
 
     public void setBola(Bola b) {
         this.bola = b;
+        resetLocation();
     }
 
     /**
@@ -126,7 +127,7 @@ public class Taco extends javax.swing.JPanel {
             mouse = P2DMath.combine(Math.nextUp(0), mouse);
         }
 
-        mouse = P2DMath.combine(P2DMath.getMagnitude(mouse) / 12, mouse);
+        mouse = P2DMath.combine(P2DMath.getMagnitude(mouse) / 16, mouse);
 
         bola.setDelta(P2DMath.getNegative(mouse));
     }//GEN-LAST:event_formMouseReleased

@@ -67,7 +67,7 @@ public class Bola {
         this.delta = d;
     }
 
-    public void setDelta(Double dx, double dy) {
+    public void setDelta(double dx, double dy) {
         this.delta = new Point2D.Double(dx, dy);
     }
 
@@ -92,7 +92,7 @@ public class Bola {
      *
      * @return true si se esta moviendo
      */
-    public Boolean isMoving() {
+    public boolean isMoving() {
         return delta.getX() != 0. || delta.getY() != 0.;
     }
 
@@ -129,7 +129,7 @@ public class Bola {
      *
      * @param roce velocidad que se le resta a la bola por cada llamado
      */
-    public void movimiento(Double roce) {
+    public void movimiento(double roce) {
 
         P2DMath.getInstance().aplyHolded();
 
