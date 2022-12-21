@@ -212,7 +212,7 @@ public class BolaTest {
         instance.setDelta(1, 0);
 
         instance.momentunTransferToBola(b);
-        P2DMath.getInstance().aplyHolded();
+        AsignationDelayer.getInstance().aplyHolded();
 
         assertTrue(.001 > Math.abs(1 - b.getDelta().getX()));
         assertTrue(.001 > Math.abs(0 - b.getDelta().getY()));
@@ -224,7 +224,7 @@ public class BolaTest {
         instance.setDelta(1, -1);
         
         instance.momentunTransferToBola(b);
-        P2DMath.getInstance().aplyHolded();
+        AsignationDelayer.getInstance().aplyHolded();
 
         assertTrue(.001 > Math.abs(1 - b.getDelta().getX()));
         assertTrue(.001 > Math.abs(-1 - b.getDelta().getY()));
@@ -236,7 +236,7 @@ public class BolaTest {
         instance.setDelta(1, 0);
         
         instance.momentunTransferToBola(b);
-        P2DMath.getInstance().aplyHolded();
+        AsignationDelayer.getInstance().aplyHolded();
 
         assertTrue(.001 > Math.abs(0.5 - b.getDelta().getX()));
         assertTrue(.001 > Math.abs(-0.5 - b.getDelta().getY()));

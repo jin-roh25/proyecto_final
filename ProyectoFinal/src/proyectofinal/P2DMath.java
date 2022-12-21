@@ -6,36 +6,17 @@ package proyectofinal;
 
 import java.awt.Point;
 import java.awt.geom.Point2D;
-import java.util.ArrayList;
 
 /**
- * varias funciones para trabajar con Puntos2D como vectores. puede retrasar la
- * asignacion de vectores para ciertos calculos
+ * varias funciones para trabajar con Puntos2D como vectores.
  *
  * @author Keyteer
  * @author segonzalez2021
  */
 public class P2DMath {
 
-    /**
-     * lista de asignaciones retrasadas
-     */
-    private final ArrayList<Point2D[]> points;
-
-    /**
-     * instancia unica
-     */
-    private static final P2DMath vectr = new P2DMath();
 
     private P2DMath() {
-        points = new ArrayList<>();
-    }
-
-    /**
-     * @return instancia unica de P2DMath
-     */
-    public static P2DMath getInstance() {
-        return vectr;
     }
 
     /**
@@ -83,25 +64,6 @@ public class P2DMath {
      */
     public static Point2D subtract(Point2D a, Point2D b) {
         return new Point2D.Double(a.getX() - b.getX(), a.getY() - b.getY());
-    }
-
-    /**
-     * guarda una asignacion para hacerla efectiva al llamar a aplyHolded()
-     *
-     * @param p vector modificado
-     * @param pAsign asignacion
-     */
-    public void holdAsign(Point2D p, Point2D pAsign) {
-        points.add(new Point2D[]{p, pAsign});
-    }
-
-    /**
-     * aplica todas las asignaciones retenidas
-     */
-    public void aplyHolded() {
-        for (Point2D[] arr : points) {
-            arr[0].setLocation(arr[1]);
-        }
     }
 
     /**

@@ -131,7 +131,7 @@ public class Bola {
      */
     public void movimiento(double roce) {
 
-        P2DMath.getInstance().aplyHolded();
+        AsignationDelayer.getInstance().aplyHolded();
 
         location = P2DMath.add(location, delta);
 
@@ -160,8 +160,8 @@ public class Bola {
         Point2D impulso = P2DMath.combine(P2DMath.getMagnitude(delta) * porcentaje,
                 P2DMath.subtract(b.getLocation(), location));
 
-        P2DMath.getInstance().holdAsign(b.getDelta(), P2DMath.add(b.getDelta(), impulso));
-        P2DMath.getInstance().holdAsign(delta, P2DMath.add(delta, P2DMath.getNegative(impulso)));
+        AsignationDelayer.getInstance().holdAsign(b.getDelta(), P2DMath.add(b.getDelta(), impulso));
+        AsignationDelayer.getInstance().holdAsign(delta, P2DMath.add(delta, P2DMath.getNegative(impulso)));
     }
 
     /**

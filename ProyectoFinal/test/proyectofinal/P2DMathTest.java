@@ -39,17 +39,6 @@ public class P2DMathTest {
     }
 
     /**
-     * Test of getInstance method, of class P2DMath.
-     */
-    @Test
-    public void testGetInstance() {
-        System.out.println("getInstance");
-        P2DMath result = P2DMath.getInstance();
-
-        assertNotNull(result);
-    }
-
-    /**
      * Test of toIntPoint method, of class P2DMath.
      */
     @Test
@@ -109,25 +98,6 @@ public class P2DMathTest {
         Point2D expResult = new Point2D.Double(-10, 10);
         Point2D result = P2DMath.subtract(a, b);
         assertEquals(expResult, result);
-    }
-
-    /**
-     * Test of holdAsign method, of class P2DMath.
-     */
-    @Test
-    public void testHoldAsign() {
-        System.out.println("holdAsign");
-        Point2D p = new Point2D.Double();
-        Point2D pAsign = new Point2D.Double(3, 3);
-        P2DMath instance = P2DMath.getInstance();
-
-        instance.holdAsign(p, pAsign);
-
-        assertEquals(new Point2D.Double(0, 0), p);
-
-        instance.aplyHolded();
-
-        assertEquals(p, pAsign);
     }
 
     /**
