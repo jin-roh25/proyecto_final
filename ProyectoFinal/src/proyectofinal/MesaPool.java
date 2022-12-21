@@ -229,24 +229,24 @@ public class MesaPool extends javax.swing.JLayeredPane {
 
         if (mesa.getY() + 72 >= b.getLocation().getY() + b.getRadio()) {
             if ((mesa.getX() + 72 <= b.getLocation().getX()) && (b.getLocation().getX() <= mesa.getX() + 379)) {
-                P2DMath.invertY(b.getDelta());
+                b.setDelta(b.getDelta().getX(), Math.abs(b.getDelta().getY()));
 
             } else if ((mesa.getX() + 420 <= b.getLocation().getX()) && (b.getLocation().getX() <= mesa.getX() + 728)) {
-                P2DMath.invertY(b.getDelta());
+                b.setDelta(b.getDelta().getX(), Math.abs(b.getDelta().getY()));
             }
         } else if (b.getLocation().getY() + b.getRadio() >= mesa.getY() + 399) {
             if ((mesa.getX() + 72 <= b.getLocation().getX()) && (b.getLocation().getX() <= mesa.getX() + 379)) {
-                P2DMath.invertY(b.getDelta());
+                b.setDelta(b.getDelta().getX(), -Math.abs(b.getDelta().getY()));
             } else if ((mesa.getX() + 420 <= b.getLocation().getX()) && (b.getLocation().getX() <= mesa.getX() + 728)) {
-                P2DMath.invertY(b.getDelta());
+                b.setDelta(b.getDelta().getX(), -Math.abs(b.getDelta().getY()));
             }
         } else if (mesa.getX() + 72 >= b.getLocation().getX() + b.getRadio()) {
             if ((mesa.getY() + 72 <= b.getLocation().getY()) && (b.getLocation().getY() <= mesa.getY() + 370)) {
-                P2DMath.invertX(b.getDelta());
+                b.setDelta(Math.abs(b.getDelta().getX()), b.getDelta().getY());
             }
         } else if (mesa.getX() + 756 <= b.getLocation().getX() + b.getRadio()) {
             if ((mesa.getY() + 72 <= b.getLocation().getY()) && (b.getLocation().getY() <= mesa.getY() + 370)) {
-                P2DMath.invertX(b.getDelta());
+                b.setDelta(-Math.abs(b.getDelta().getX()), b.getDelta().getY());
             }
         }
 
